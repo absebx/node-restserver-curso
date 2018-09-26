@@ -16,7 +16,7 @@ let urlDB;
 if (process.env.NODE_ENV === 'dev'){
   urlDB = 'mongodb://localhost:27017/cafe';
 }else{
-  urlDB = 'mongodb://cafe-user:chocolate123456@ds051523.mlab.com:51523/cafe';
+  urlDB = process.env.MONGO_URI; //LA VARIABLE SERÁ POR HEROKU
 }
 
 process.env.URLDB = urlDB;
