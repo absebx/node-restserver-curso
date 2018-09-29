@@ -10,7 +10,18 @@ process.env.PORT = process.env.PORT || 3000;
 process.env.NODE_ENV = process.env.NODE_ENV || 'dev' //si no existe, estoy en desarrollo
 
 //==================================
-//Entorno
+//Vencimiento del token
+//==================================
+//60 seg, 60 min, 24 horas, 30 días
+process.env.CADUCIDAD_TOKEN = 60 * 60 * 24 *30;
+
+//==================================
+//Seed de autenticación
+//==================================
+process.env.SEED = process.env.SEED || 'el-seed-de-desarrollo'; // se declara en heroku
+
+//==================================
+//base datos
 //==================================
 let urlDB;
 if (process.env.NODE_ENV === 'dev'){
