@@ -2,6 +2,8 @@ require('./config/config'); //es lo primero que ejecutará
 
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
+
 const app = express();
 const bodyParser = require('body-parser');
 
@@ -10,6 +12,12 @@ app.use(bodyParser.urlencoded({ extended: false })) //los use son middlewares, s
  
 // parse application/json
 app.use(bodyParser.json())
+
+//habilitar carpeta public 
+let directorio = path.resolve(__dirname,'../public') //por cada directorio lo irá resolviendo
+app.use(express.static(directorio));
+
+console.log(); //
 
 // configuracion global de rutas
 app.use( require ('./routes/index'));
