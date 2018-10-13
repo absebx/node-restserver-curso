@@ -12,13 +12,14 @@ app.post('/login',(req,res)=>{
   let body = req.body;
 
   Usuario.findOne({email: body.email}, (err, userDB)=>{
+    // manejar error
     if(err){
       return res.status(500).json({
         ok: false,
         err
       });
     }
-
+    // si usuario no existe
     if(!userDB){
       return res.status(404).json({
         ok: false,
@@ -27,7 +28,7 @@ app.post('/login',(req,res)=>{
         }
       });
     }
-
+    // si contraseña inválida
     if( !bcrypt.compareSync(body.password,userDB.password)){
       return res.status(404).json({
         ok: false,
@@ -37,19 +38,19 @@ app.post('/login',(req,res)=>{
       });
     }
 
-
+    // generar token
     let token = jwt.sign({
       usuario: userDB //payload del token
     }, process.env.SEED, //token segun el env
-    {expiresIn: process.env.CADUCIDAD_TOKEN})
+    {expiresIn: process.env.CADUCIDAD_TOKEN}) //llave para la generacion del token
 
+    // devolver token generado
     res.json({
       ok: true,
       usuario: userDB,
       token
     });
-
-
+    
   });
 
 });
